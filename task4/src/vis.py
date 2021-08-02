@@ -80,7 +80,7 @@ if len(path) > 0:
             fig = px.bar(df, x='shape', y='score', title='Classification score')
             st.plotly_chart(fig, use_container_width=True)
         except:
-            st.write('Not 3D model file')
+            st.write('Not 3D model .obj file')
     else:
         st.write('No such file or directory')
 else:
