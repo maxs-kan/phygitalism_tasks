@@ -23,7 +23,7 @@ def get_pc(verts, faces):
     pc = (pc - pc.mean(dim=1)) / torch.max(pc)
     return pc
 
-def prepare_model(device):
+def prepare_model():
     args = argparse.Namespace(
         num_cls=6,
         hid_dim=128,
@@ -36,18 +36,17 @@ def prepare_model(device):
     checkpoint = torch.load('./last.pt', map_location='cpu')
     model.load_state_dict(checkpoint['model_state_dict'])
     model.eval()
-    return model.to(device)
+    return model
 
 st.title('3D model visualization')
-device = torch.device('cuda' if torch.cuda.is_available else 'cpu')
 if 'model' not in st.session_state:
-    st.session_state.model = prepare_model(device)
+    st.session_state.model = prepare_model()
     
 path = st.text_input('path to model')
 if len(path) > 0:
     if os.path.exists(path):
         verts, faces, _ = load_obj(path)
-        pc = get_pc(verts, faces).to(device)
+        pc = get_pc(verts, faces)
         with torch.no_grad():
             score = F.softmax(st.session_state.model(pc), dim=-1).cpu().squeeze().numpy()
         
