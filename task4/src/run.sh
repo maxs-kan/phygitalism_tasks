@@ -1,2 +1,2 @@
 #/bin/bash
-streamlit run ./vis.py
+streamlit run vis.py
