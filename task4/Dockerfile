@@ -18,4 +18,4 @@ COPY --from=build /app/conda/bin /app/conda/bin
 COPY --from=build /app/conda/lib /app/conda/lib
 ENV PATH=/app/conda/bin:$PATH
 COPY src/* /app/
-CMD /app/run.sh
+ENTRYPOINT ["streamlit", "run", "vis.py"]
