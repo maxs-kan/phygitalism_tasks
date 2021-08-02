@@ -23,8 +23,8 @@ def run_model(model, dataloader, device):
     print('Classification report for {} set'.format(dataloader.dataset.phase))
     target_names = list(dataloader.dataset.class_map.keys())
     print(classification_report(y_true, y_pred, target_names=target_names))
-    
-    
+
+
 def test(args):
     device = torch.device('cuda' if torch.cuda.is_available else 'cpu')
     dataset_t = ShapeDataset('test', args)
@@ -51,7 +51,7 @@ def test(args):
     run_model(model, dataloader_t, device)
     run_model(model, dataloader_v, device)
 
-    
+
 if __name__ == "__main__":
     args = argparse.Namespace(
         seed=111,
